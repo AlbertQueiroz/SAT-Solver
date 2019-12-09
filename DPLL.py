@@ -1,19 +1,26 @@
-clausulas = [[1,-3],[2,3,-1]]
+from manipulacao_arquivo import ler_arquivo
+
+clausulas = ler_arquivo()[0]
 
 def tem_unitaria(clausulas):
     ret = False
     for clausula in clausulas:
+        if(type(clausula) == int):
+            return False
         if (len(clausula) == 1):
             ret = True
     return ret
 
 def pega_literal_unitaria(clausulas):
     for clausula in clausulas:
-        if (len(clausula) == 1 ):
+        if (len(clausula) == 1):
             return clausula[0]
+            
+def pega_literal(clausulas):
+    return(clausulas[0][0])
 
 def atualizar(clausulas, literal_unitaria):
-    for clausula in clausulas:
+    for clausula in clausulas[::-1]:
         if (literal_unitaria in clausula):
             clausulas.remove(clausula)
         if (literal_unitaria*-1 in clausula):
@@ -39,14 +46,15 @@ def dpll_rec(clausulas, valoração):
     valoração.update(valoração2)
     if ([] in clausulas):
         return False
-    if clausulas == []:
-        return True
-    literal = pega_literal_unitaria(clausulas)
+    if (clausulas == []):
+        return valoração
+    literal = pega_literal(clausulas)
     clausulas1 = clausulas + [[literal]]
-    clausulas2  = clausulas + [[literal*-1]]
+    clausulas2  = clausulas + [literal*-1]
     res = dpll_rec(clausulas1, valoração)
     if (res != False):
         return res
     return dpll_rec(clausulas2, valoração)
+    
 
 print(dpll(clausulas))

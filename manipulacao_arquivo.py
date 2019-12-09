@@ -11,7 +11,10 @@ def ler_arquivo():
         else:
             linha = ('').join(linha)
             linha = linha.split()
+            for x in range(len(linha)):
+                linha[x] = int(linha[x])
             formulas.append(linha[:-1])
+    arquivo.close()
     return formulas, dados_arquivo
 
 def mostrar_informacoes(formulas, dados_arquivo):
@@ -25,5 +28,3 @@ def mostrar_informacoes(formulas, dados_arquivo):
                 linha += ['¬'+dados_arquivo[0] + atomica[1]]
         linhas.append(linha)
     return linhas
-
-print(mostrar_informacoes(ler_arquivo()[0], ler_arquivo()[1]))
