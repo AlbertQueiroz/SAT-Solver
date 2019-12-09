@@ -17,6 +17,19 @@ def ler_arquivo():
     arquivo.close()
     return formulas, dados_arquivo
 
+def escrever_arquivo(valoracao):
+    arquivo = open('arquivo_escrita.txt', 'w')
+    if (valoracao == False):
+        arquivo.write("UNSATISFIABLE")
+    else:
+        for literal in valoracao:
+            if (valoracao[literal] == False):
+                arquivo.write(str(literal*-1) + " ")
+            elif (valoracao[literal] == True):
+                arquivo.write(str(literal) + " ")
+        arquivo.write("0")
+    arquivo.close()
+
 def mostrar_informacoes(formulas, dados_arquivo):
     linhas = []
     for clausula in formulas:

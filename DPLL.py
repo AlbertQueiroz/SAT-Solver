@@ -1,4 +1,5 @@
 from manipulacao_arquivo import ler_arquivo
+from manipulacao_arquivo import escrever_arquivo
 
 clausulas = ler_arquivo()[0]
 
@@ -57,4 +58,4 @@ def dpll_rec(clausulas, valoração):
     return dpll_rec(clausulas2, valoração)
     
 
-print(dpll(clausulas))
+escrever_arquivo(dpll(clausulas))
