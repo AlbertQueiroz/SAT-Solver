@@ -1,5 +1,6 @@
 from manipulacao_arquivo import ler_arquivo
 from manipulacao_arquivo import escrever_arquivo
+from manipulacao_arquivo import mostrar_informacoes
 
 clausulas = ler_arquivo()[0]
 
@@ -18,7 +19,7 @@ def pega_literal_unitaria(clausulas):
             return clausula[0]
             
 def pega_literal(clausulas):
-    return(clausulas[0][0])
+    return clausulas[-1][-1]
 
 def atualizar(clausulas, literal_unitaria):
     for clausula in clausulas[::-1]:
@@ -52,10 +53,9 @@ def dpll_rec(clausulas, valoração):
     literal = pega_literal(clausulas)
     clausulas1 = clausulas + [[literal]]
     clausulas2  = clausulas + [literal*-1]
-    res = dpll_rec(clausulas1, valoração)
+    res = dpll_rec(clausulas1, valoração.copy())
     if (res != False):
         return res
-    return dpll_rec(clausulas2, valoração)
-    
+    return dpll_rec(clausulas2, valoração.copy())
 
 escrever_arquivo(dpll(clausulas))
