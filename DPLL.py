@@ -2,7 +2,10 @@ from manipulacao_arquivo import ler_arquivo
 from manipulacao_arquivo import escrever_arquivo
 from manipulacao_arquivo import mostrar_informacoes
 
-clausulas = ler_arquivo()[0]
+import timeit
+
+clausulas, dados_arquivo = ler_arquivo()
+
 
 def tem_unitaria(clausulas):
     ret = False
@@ -13,13 +16,16 @@ def tem_unitaria(clausulas):
             ret = True
     return ret
 
+
 def pega_literal_unitaria(clausulas):
     for clausula in clausulas:
         if (len(clausula) == 1):
             return clausula[0]
-            
+
+
 def pega_literal(clausulas):
     return clausulas[-1][-1]
+
 
 def atualizar(clausulas, literal_unitaria):
     for clausula in clausulas[::-1]:
@@ -29,7 +35,8 @@ def atualizar(clausulas, literal_unitaria):
             clausula.remove(literal_unitaria*-1)
     return clausulas
 
-def simplifica(clausulas): 
+
+def simplifica(clausulas):
     valoração = {}
     while (tem_unitaria(clausulas)):
         literal_unitaria = pega_literal_unitaria(clausulas)
@@ -40,8 +47,10 @@ def simplifica(clausulas):
         clausulas = atualizar(clausulas, literal_unitaria)
     return clausulas, valoração
 
+
 def dpll(clausulas):
     return dpll_rec(clausulas, {})
+
 
 def dpll_rec(clausulas, valoração):
     clausulas, valoração2 = simplifica(clausulas)
@@ -52,10 +61,14 @@ def dpll_rec(clausulas, valoração):
         return valoração
     literal = pega_literal(clausulas)
     clausulas1 = clausulas + [[literal]]
-    clausulas2  = clausulas + [literal*-1]
+    clausulas2 = clausulas + [literal*-1]
     res = dpll_rec(clausulas1, valoração.copy())
     if (res != False):
         return res
     return dpll_rec(clausulas2, valoração.copy())
 
+
+mostrar_informacoes(clausulas, dados_arquivo)
 escrever_arquivo(dpll(clausulas))
+time = timeit.timeit('"-".join(str(n) for n in range(100))', number=10000)
+print("Executado em", round(time, 2), "segundos")

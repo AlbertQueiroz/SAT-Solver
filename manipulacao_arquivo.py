@@ -5,7 +5,7 @@ def ler_arquivo():
     formulas = []
     for linha in linhas:
         if(linha[0] == 'c'):
-            print("\n Comentario: ", linha[2:])
+            print("Comentario: ", linha[2:], end='')
         elif(ord(linha[0]) > 57):
             dados_arquivo = linha.split()
         else:
@@ -16,6 +16,7 @@ def ler_arquivo():
             formulas.append(linha[:-1])
     arquivo.close()
     return formulas, dados_arquivo
+
 
 def escrever_arquivo(valoracao):
     arquivo = open('arquivo_escrita.txt', 'w')
@@ -29,3 +30,22 @@ def escrever_arquivo(valoracao):
                 arquivo.write(str(literal) + " ")
         arquivo.write("0")
     arquivo.close()
+
+
+def mostrar_informacoes(formulas, dados_arquivo):
+    linhas = []
+    for clausula in formulas:
+        linha = []
+        for atomica in clausula:
+            if(int(atomica) > 0):
+                linha += [dados_arquivo[0] + str(atomica)]
+            else:
+                linha += ['¬'+dados_arquivo[0] + str(atomica)[1]]
+        linhas.append(linha)
+    for x in range(len(linhas)):
+        linhas[x] = '(' + str((' v ').join(linhas[x])) + ')'
+        if (x < len(linhas)-1):
+            print(linhas[x], end=' ^ ')
+        else:
+            print(linhas[x])
+    return linhas
