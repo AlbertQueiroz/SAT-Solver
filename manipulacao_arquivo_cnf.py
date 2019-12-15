@@ -1,6 +1,6 @@
 
-def ler_arquivo():
-    arquivo = open('arquivo_leitura.txt', 'r')
+def ler_arquivo_cnf():
+    arquivo = open('entrada_cnf.txt', 'r')
     linhas = arquivo.readlines()
     formulas = []
     for linha in linhas:
@@ -18,8 +18,8 @@ def ler_arquivo():
     return formulas, dados_arquivo
 
 
-def escrever_arquivo(valoracao):
-    arquivo = open('arquivo_escrita.txt', 'w')
+def escrever_resultado_cnf(valoracao):
+    arquivo = open('resultado.txt', 'w')
     if (valoracao == False):
         arquivo.write("UNSATISFIABLE")
     else:
@@ -40,7 +40,7 @@ def mostrar_informacoes(formulas, dados_arquivo):
             if(int(atomica) > 0):
                 linha += [dados_arquivo[0] + str(atomica)]
             else:
-                linha += ['¬'+dados_arquivo[0] + str(atomica)[1]]
+                linha += ['¬'+dados_arquivo[0] + str(atomica)[1:]]
         linhas.append(linha)
     for x in range(len(linhas)):
         linhas[x] = '(' + str((' v ').join(linhas[x])) + ')'

@@ -1,10 +1,10 @@
-from manipulacao_arquivo import ler_arquivo
-from manipulacao_arquivo import escrever_arquivo
-from manipulacao_arquivo import mostrar_informacoes
+from manipulacao_arquivo_cnf import ler_arquivo_cnf
+from manipulacao_arquivo_cnf import escrever_resultado_cnf
+from manipulacao_arquivo_cnf import mostrar_informacoes
 
 import timeit
 
-clausulas, dados_arquivo = ler_arquivo()
+clausulas, dados_arquivo = ler_arquivo_cnf()
 
 
 def tem_unitaria(clausulas):
@@ -69,6 +69,6 @@ def dpll_rec(clausulas, valoração):
 
 
 mostrar_informacoes(clausulas, dados_arquivo)
-escrever_arquivo(dpll(clausulas))
-time = timeit.timeit('"-".join(str(n) for n in range(100))', number=10000)
-print("Executado em", round(time, 2), "segundos")
+escrever_resultado_cnf(dpll(clausulas))
+time = timeit.timeit('"-".join(str(n) for n in range(100))', number=1000)
+print("Executado em", round(time, 4), "milisegundos")
