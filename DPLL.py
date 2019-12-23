@@ -1,8 +1,6 @@
-from manipulacao_arquivo_cnf import ler_arquivo_cnf
-from manipulacao_arquivo_cnf import escrever_resultado_cnf
-from manipulacao_arquivo_cnf import mostrar_informacoes
+from manipulacao_arquivo_cnf import *
 
-import timeit
+import time
 
 clausulas, dados_arquivo = ler_arquivo_cnf()
 
@@ -69,6 +67,8 @@ def dpll_rec(clausulas, valoração):
 
 
 #mostrar_informacoes(clausulas, dados_arquivo)
+t0 = time.time()
 escrever_resultado_cnf(dpll(clausulas))
-time = timeit.timeit('"-".join(str(n) for n in range(100))', number=1000)
-print("Executado em", round(time, 4), "milisegundos")
+t1 = time.time()
+
+print("Executado em {} milisegundos".format(t1-t0))

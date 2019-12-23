@@ -1,6 +1,6 @@
 from pysat.solvers import Glucose3
 from manipulacao_arquivo_cnf import ler_arquivo_cnf
-import timeit
+import time
 
 g = Glucose3()
 
@@ -10,6 +10,8 @@ for clausula in clausulas:
     print(clausula)
     g.add_clause(clausula)
 
+t0 = time.time()
 print(g.solve())
-time = timeit.timeit('"-".join(str(n) for n in range(100))', number=1000)
-print("Executado em", round(time, 4), "milisegundos")
+t1 = time.time()
+
+print("Executado em {} milisegundos".format(t1-t0))
