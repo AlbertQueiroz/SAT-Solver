@@ -68,7 +68,7 @@ def dpll_rec(clausulas, valoração):
     return dpll_rec(clausulas2, valoração.copy())
 
 
-mostrar_informacoes(clausulas, dados_arquivo)
+#mostrar_informacoes(clausulas, dados_arquivo)
 escrever_resultado_cnf(dpll(clausulas))
 time = timeit.timeit('"-".join(str(n) for n in range(100))', number=1000)
 print("Executado em", round(time, 4), "milisegundos")
